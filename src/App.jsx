@@ -1,7 +1,19 @@
 import { useState } from 'react';
-import { Route, Router, Text, ButtonGroup, Button, useText, Image, Dialog, DialogStep } from '@urban-bot/core';
+import {
+    Route,
+    Router,
+    Text,
+    ButtonGroup,
+    Button,
+    useText,
+    Image,
+    Dialog,
+    DialogStep,
+    useBotContext,
+} from '@urban-bot/core';
 import fs from 'fs';
 import logo from './assets/logo.png';
+import { BotContext } from '@urban-bot/core/dist/context';
 
 const file = fs.readFileSync(logo);
 
@@ -53,48 +65,69 @@ function FlatDialogExample() {
 
 export const TreeDialog = () => {
     return (
-        <Dialog>
-            <DialogStep
-                content={
-                    <ButtonGroup title={'Привет, что хочешь заказать?'}>
-                        <Button id="hat">Футболка</Button>
-                        <Button id="glasses">Очки</Button>
-                        <Button id="bag">Сумка</Button>
-                    </ButtonGroup>
-                }
-            >
+        <>
+            <Dialog>
                 <DialogStep
-                    match="hat"
                     content={
-                        <ButtonGroup title="Какой размер твоей футболки?">
-                            <Button id="s">S</Button>
-                            <Button id="m">M</Button>
-                            <Button id="l">L</Button>
+                        <ButtonGroup title={'Привет, что хочешь заказать?'}>
+                            <Button id="hat">Футболка</Button>
+                            <Button id="glasses">Очки</Button>
+                            <Button id="bag">Сумка</Button>
                         </ButtonGroup>
                     }
-                />
+                >
+                    <DialogStep
+                        match="hat"
+                        content={
+                            <ButtonGroup title="Какой размер твоей футболки?">
+                                <Button id="s">S</Button>
+                                <Button id="m">M</Button>
+                                <Button id="l">L</Button>
+                            </ButtonGroup>
+                        }
+                    />
+                    <DialogStep
+                        match="glasses"
+                        content={
+                            <ButtonGroup title="Какого цвета очки?">
+                                <Button id="Черный">Черный</Button>
+                                <Button id="Желтый">Желтый</Button>
+                                <Button id="Розовый">Розовый</Button>
+                            </ButtonGroup>
+                        }
+                    />
+                    <DialogStep
+                        match="bag"
+                        content={
+                            <ButtonGroup title="Какой цвет сумки?">
+                                <Button id="Черный">Черная</Button>
+                                <Button id="Желтый">Желтая</Button>
+                                <Button id="Розовый">Розовая</Button>
+                            </ButtonGroup>
+                        }
+                    />
+                </DialogStep>
+            </Dialog>
+
+            <Dialog>
                 <DialogStep
-                    match="glasses"
                     content={
-                        <ButtonGroup title="Какого цвета очки?">
-                            <Button id="Черный">Черный</Button>
-                            <Button id="Желтый">Желтый</Button>
-                            <Button id="Розовый">Розовый</Button>
+                        <ButtonGroup title={'За покупками!'}>
+                            <Button id="api">GO</Button>
                         </ButtonGroup>
                     }
-                />
-                <DialogStep
-                    match="bag"
-                    content={
-                        <ButtonGroup title="Какой цвет сумки?">
-                            <Button id="Черный">Черная</Button>
-                            <Button id="Желтый">Желтая</Button>
-                            <Button id="Розовый">Розовая</Button>
-                        </ButtonGroup>
-                    }
-                />
-            </DialogStep>
-        </Dialog>
+                >
+                    <DialogStep
+                        match="api"
+                        content={
+                            <ButtonGroup>
+                                <Button id="link">Купить</Button>
+                            </ButtonGroup>
+                        }
+                    ></DialogStep>
+                </DialogStep>
+            </Dialog>
+        </>
     );
 };
 
